@@ -28,20 +28,27 @@ namespace Proyecto_KevinCoto_API.Controllers
             return user ;
         }
 
+     
+
         // POST api/<UsuariosController>
         [HttpPost]
         public IActionResult Post([FromBody] Usuario user)
         {
-            data.AgregarUsuario(user);
+            var resultado = data.AgregarUsuario(user);
+            if(resultado)
             return Ok(user);
+            else
+                return BadRequest();
         }
 
         // PUT api/<UsuariosController>/5
-        [HttpPut("{cedula}")]
-        public IActionResult Put(string cedula, [FromBody] Usuario user)
+        [HttpPut]
+        public IActionResult Put( [FromBody] Usuario user)
         {
-            data.EditarUsuario(cedula, user);
-            return Ok(user);
+            if (data.EditarUsuario(user))
+                return Ok(user);
+            else
+                return BadRequest();
 
         }
 
@@ -49,8 +56,10 @@ namespace Proyecto_KevinCoto_API.Controllers
         [HttpDelete("{cedula}")]
         public IActionResult Delete(string cedula)
         {
-            data.EliminarUsuario(cedula);
-            return Ok();
+            if (data.EliminarUsuario(cedula))
+                return Ok();
+            else
+                return BadRequest();
         }
     }
 }

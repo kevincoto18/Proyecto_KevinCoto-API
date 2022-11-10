@@ -28,19 +28,30 @@ namespace Proyecto_KevinCoto_API.Data
             }
             return null;
         }
+
+
         //METODO PARA AGREGAR UN USUARIO A LA LISTA
         public bool AgregarUsuario(Usuario user)
         {
             bool agregado;
             try
             {
-                ListaUsuarios.Add(user);
-                agregado = true;
+                var verificacion = from i in ListaUsuarios
+                                   where i.Cedula == user.Cedula
+                                   select i;
+                if (verificacion.Count() < 1)
+                {
+                    ListaUsuarios.Add(user);
+                    agregado = true;
+                }
+                else
+                    agregado = false;
+
             }
             catch (Exception)
             {
                 agregado = false;
-              
+
             }
             return agregado;
         }
@@ -63,19 +74,44 @@ namespace Proyecto_KevinCoto_API.Data
             return eliminado;
         }
 
-        public bool EditarUsuario(string cedula, Usuario user)
+        public bool EditarUsuario( Usuario user)
         {
             bool editado;
             try
             {
-                ListaUsuarios.RemoveAll(x => x.Cedula == cedula);
-                ListaUsuarios.Add(user);
-                editado = true;
+                bool encontrado = false;
+                var cedula = user.Cedula;
+                foreach (var i in ListaUsuarios)
+                {
+                    if (i.Cedula == cedula)
+                        encontrado = true;
+                }
+                if (encontrado)
+                {
+                    try
+                    {
+                        ListaUsuarios.RemoveAll(x => x.Cedula == cedula);
+                        ListaUsuarios.Add(user);
+                        editado = true;
+                    }
+                    catch (Exception)
+                    {
+                        editado = false;
+                        throw;
+                    }
+                }
+                else
+                {
+                    editado = false;
+                    return editado;
+                }
+
+
             }
             catch (Exception)
             {
                 editado = false;
-                
+
             }
             return editado;
         }
