@@ -29,6 +29,22 @@ namespace Proyecto_KevinCoto_API.Data
             return null;
         }
 
+        //Metodo para iniciar sesion en el aplicativo
+
+        public Usuario IniciarSesion(string cedula,string password)
+        {
+            Usuario user2 = new Usuario();
+            foreach (Usuario user in ListaUsuarios)
+            {
+                if (user.Cedula == cedula && user.password == password)
+                {
+                    return user;
+                }
+            }
+            
+            return user2 ;
+        }
+
 
         //METODO PARA AGREGAR UN USUARIO A LA LISTA
         public bool AgregarUsuario(Usuario user)

@@ -28,7 +28,21 @@ namespace Proyecto_KevinCoto_API.Controllers
             return user ;
         }
 
-     
+        [HttpGet("{cedula},{password}")]
+        public Usuario IniciarSesion(string cedula,string password)
+        {
+            Usuario user = data.IniciarSesion(cedula,password);
+
+            if(user.Cedula == null && user.password == null)
+            {
+                return null;
+                
+              
+            }
+            return user;
+        }
+
+
 
         // POST api/<UsuariosController>
         [HttpPost]
