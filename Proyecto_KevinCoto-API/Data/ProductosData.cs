@@ -61,14 +61,37 @@ namespace Proyecto_KevinCoto_API.Data
             return eliminado;
         }
         // Editar un Producto de la lista 
-        public bool EditarProducto(string Id, Producto product)
+        public bool EditarProducto( Producto product)
         {
             bool editado;
             try
             {
-                ListaProductos.RemoveAll(x => x.Id == Id);
-                ListaProductos.Add(product);
-                editado = true;
+                bool encontrado = false;
+                var id = product.Id;
+                foreach (var i in ListaProductos)
+                {
+                    if (i.Id == id)
+                        encontrado = true;
+                }
+                if (encontrado)
+                {
+                    try
+                    {
+                        ListaProductos.RemoveAll(x => x.Id == id);
+                        ListaProductos.Add(product);
+                        editado = true;
+                    }
+                    catch (Exception)
+                    {
+                        editado = false;
+                        throw;
+                    }
+                }
+                else
+                {
+                    editado = false;
+                    return editado;
+                }
             }
             catch (Exception)
             {

@@ -2,26 +2,26 @@
 
 namespace Proyecto_KevinCoto_API.Data
 {
-    public class UsuariosData
+    public class ProveedoresData
     {
-        public static List<Usuario> ListaUsuarios;
-        public UsuariosData()
+        public static List<Proveedor> ListaProveedor;
+        public ProveedoresData()
         {
-            ListaUsuarios = new List<Usuario>();
+            ListaProveedor = new List<Proveedor>();
 
         }
-        //METODO PARA LISTAR TODOS LOS USUARIOS DE LA LISTA
-        public List<Usuario> ListarUsuarios()
+
+        public List<Proveedor> ListarProveedores()
         {
 
-            return ListaUsuarios;
+            return ListaProveedor;
         }
-        //METODO PARA BUSCAR UN USUARIO EN CONCRETO EN LA LISTA
-        public Usuario BuscarUsuario(string cedula)
+        //METODO PARA BUSCAR UN Proveedor EN CONCRETO EN LA LISTA
+        public Proveedor BuscarProveedor(string id)
         {
-            foreach (Usuario user in ListaUsuarios)
+            foreach (Proveedor user in ListaProveedor)
             {
-                if (user.Cedula == cedula)
+                if (user.id == id)
                 {
                     return user;
                 }
@@ -30,18 +30,18 @@ namespace Proyecto_KevinCoto_API.Data
         }
 
 
-        //METODO PARA AGREGAR UN USUARIO A LA LISTA
-        public bool AgregarUsuario(Usuario user)
+        //METODO PARA AGREGAR UN Proveedor A LA LISTA
+        public bool AgregarProveedor(Proveedor user)
         {
             bool agregado;
             try
             {
-                var verificacion = from i in ListaUsuarios
-                                   where i.Cedula == user.Cedula
+                var verificacion = from i in ListaProveedor
+                                   where i.id == user.id
                                    select i;
                 if (verificacion.Count() < 1)
                 {
-                    ListaUsuarios.Add(user);
+                    ListaProveedor.Add(user);
                     agregado = true;
                 }
                 else
@@ -56,13 +56,13 @@ namespace Proyecto_KevinCoto_API.Data
             return agregado;
         }
 
-        // METODO PARA ELIMINAR UN USUARIO DE LA LISTA
-        public bool EliminarUsuario(string cedula)
+        // METODO PARA ELIMINAR UN Proveedor DE LA LISTA
+        public bool EliminarProveedor(string id)
         {
             bool eliminado;
             try
             {
-                ListaUsuarios.RemoveAll(x => x.Cedula == cedula);
+                ListaProveedor.RemoveAll(x => x.id == id);
                 eliminado = true;
             }
             catch (Exception)
@@ -74,24 +74,24 @@ namespace Proyecto_KevinCoto_API.Data
             return eliminado;
         }
 
-        public bool EditarUsuario(Usuario user)
+        public bool EditarProveedor(Proveedor user)
         {
             bool editado;
             try
             {
                 bool encontrado = false;
-                var cedula = user.Cedula;
-                foreach (var i in ListaUsuarios)
+                var id = user.id;
+                foreach (var i in ListaProveedor)
                 {
-                    if (i.Cedula == cedula)
+                    if (i.id == id)
                         encontrado = true;
                 }
                 if (encontrado)
                 {
                     try
                     {
-                        ListaUsuarios.RemoveAll(x => x.Cedula == cedula);
-                        ListaUsuarios.Add(user);
+                        ListaProveedor.RemoveAll(x => x.id == id);
+                        ListaProveedor.Add(user);
                         editado = true;
                     }
                     catch (Exception)
@@ -115,5 +115,6 @@ namespace Proyecto_KevinCoto_API.Data
             }
             return editado;
         }
+
     }
 }

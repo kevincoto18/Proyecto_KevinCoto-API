@@ -37,11 +37,13 @@ namespace Proyecto_KevinCoto_API.Controllers
         }
 
         // PUT api/<ProductosController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody] Producto product)
+        [HttpPut]
+        public IActionResult Put([FromBody] Producto product)
         {
-            data.EditarProducto(id, product);
-            return Ok(product);
+            if (data.EditarProducto(product))
+                return Ok(product);
+            else
+                return BadRequest();
         }
 
         // DELETE api/<ProductosController>/5
