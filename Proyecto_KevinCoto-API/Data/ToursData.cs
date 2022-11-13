@@ -5,9 +5,17 @@ namespace Proyecto_KevinCoto_API.Data
     public class ToursData
     {
         public static List<Tour> ListaTours;
+        Tour tour = new Tour();
         public ToursData()
         {
             ListaTours = new List<Tour>();
+            tour.Id = "145569680";
+            tour.Descripcion = "Tour en Bahia Ballena";
+            tour.precio = "15000";
+            tour.dias = "Lunes a Viernes";
+            tour.imagen = "playa1.jpg";
+            tour.Id_Proveedor = "01-0123-0456";
+            ListaTours.Add(tour);
         }
         public List<Tour> ListarTour()
         {

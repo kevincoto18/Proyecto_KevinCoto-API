@@ -5,10 +5,20 @@ namespace Proyecto_KevinCoto_API.Data
     public class UsuariosData
     {
         public static List<Usuario> ListaUsuarios;
+        Usuario admin = new Usuario();
+        
         public UsuariosData()
         {
             ListaUsuarios = new List<Usuario>();
-
+            admin.Cedula = "11-1111-1111";
+            admin.Nombre_Completo = "Administrador Ministritos";
+            admin.FechaNacimiento = "2002";
+            admin.Telefono = "8888-88880";
+            admin.profesion = "Administrador pagina";
+            admin.email = "administrador@uned.cr";
+            admin.publicacion = "Ministritos CR";
+            admin.password = "Ejemplo!23";
+            ListaUsuarios.Add(admin);
         }
         //METODO PARA LISTAR TODOS LOS USUARIOS DE LA LISTA
         public List<Usuario> ListarUsuarios()

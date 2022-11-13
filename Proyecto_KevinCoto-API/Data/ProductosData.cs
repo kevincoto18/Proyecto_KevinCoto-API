@@ -5,9 +5,17 @@ namespace Proyecto_KevinCoto_API.Data
     public class ProductosData
     {
         public static List<Producto> ListaProductos;
+        Producto producto = new Producto();
         public ProductosData()
         {
             ListaProductos = new List<Producto>();
+            producto.Id = "44646548";
+            producto.Descripcion = " Kit Juguetes de Arena";
+            producto.precio = 20000;
+            producto.anoingreso = 2022;
+            producto.Proveedor_id = "01-0123-0456";
+            ListaProductos.Add(producto);
+
 
         }
         public List<Producto> ListarProductos()

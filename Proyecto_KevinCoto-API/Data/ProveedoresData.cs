@@ -5,9 +5,13 @@ namespace Proyecto_KevinCoto_API.Data
     public class ProveedoresData
     {
         public static List<Proveedor> ListaProveedor;
+        Proveedor provedor = new Proveedor();
         public ProveedoresData()
         {
             ListaProveedor = new List<Proveedor>();
+            provedor.id = "01-0123-0456";
+            provedor.descripcion = "Proveedor Ministritos";
+            ListaProveedor.Add(provedor);
 
         }
 
