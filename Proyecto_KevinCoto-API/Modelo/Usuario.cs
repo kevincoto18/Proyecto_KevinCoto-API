@@ -4,6 +4,7 @@ namespace Proyecto_KevinCoto_API.Modelo
 {
     public class Usuario
     {
+        [Key]
         public string Cedula { get; set; }
         [Required]
         [StringLength(50, ErrorMessage = "Logitud máxima 50")]
