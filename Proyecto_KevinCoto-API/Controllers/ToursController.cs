@@ -16,7 +16,7 @@ namespace Proyecto_KevinCoto_API.Controllers
         {
             this.context = context;
         }
-        private static ToursData data = new ToursData();
+        //private static ToursData data = new ToursData();
         // GET: api/<ToursController>
         #region metodoget
         //[HttpGet]
