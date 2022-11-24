@@ -5,6 +5,7 @@ namespace Proyecto_KevinCoto_API.Modelo
     public class Tour
     {
         [Required]
+        [Key]
         [StringLength(50, ErrorMessage = "Logitud máxima 50")]
         public string Id { get; set; }
         [Required]

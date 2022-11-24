@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Proyecto_KevinCoto_API.Data;
 using Proyecto_KevinCoto_API.Modelo;
 
@@ -11,69 +12,118 @@ namespace Proyecto_KevinCoto_API.Controllers
     public class UsuariosController : ControllerBase
     {
         private static UsuariosData data = new UsuariosData();
+        private readonly ApiDBContext context;
+        public UsuariosController(ApiDBContext context)
+        {
+            this.context = context;
+        }
+        #region metodoGetLista
         // GET: api/<UsuariosController>
+        //[HttpGet]
+        //public List<Usuario> Get()
+        //{
+        //    //List<Usuario> list = new List<Usuario>();
+        //    //list = data.ListarUsuarios();
+        //    //return list;
+        //}
+        #endregion
         [HttpGet]
         public List<Usuario> Get()
         {
-            List<Usuario> list = new List<Usuario>();
-            list = data.ListarUsuarios();
-            return list;
-        }
+            List<Usuario> lista = context.Usuario.ToList();
+            return lista;
 
-        // GET api/<UsuariosController>/5
+        }
+        #region metodogetbuscar
+        //// GET api/<UsuariosController>/5
+        //[HttpGet("{cedula}")]
+        //public Usuario Get(string cedula)
+        //{
+        //    Usuario user = data.BuscarUsuario(cedula);
+        //    return user;
+        //}
+        #endregion
         [HttpGet("{cedula}")]
         public Usuario Get(string cedula)
         {
-            Usuario user = data.BuscarUsuario(cedula);
-            return user ;
+            Usuario lista = context.Usuario.Find(cedula);
+            return lista;
         }
+        #region metodoPost
 
-        [HttpGet("{cedula},{password}")]
-        public Usuario IniciarSesion(string cedula,string password)
-        {
-            Usuario user = data.IniciarSesion(cedula,password);
-
-            if(user.Cedula == null && user.password == null)
-            {
-                return null;
-                
-              
-            }
-            return user;
-        }
-
-
-
+        // POST api/<UsuariosController>
+        //[HttpPost]
+        //public IActionResult Post([FromBody] Usuario user)
+        //{
+        //    var resultado = data.AgregarUsuario(user);
+        //    if (resultado)
+        //        return Ok(user);
+        //    else
+        //        return BadRequest();
+        //}
+        #endregion
         // POST api/<UsuariosController>
         [HttpPost]
         public IActionResult Post([FromBody] Usuario user)
         {
-            var resultado = data.AgregarUsuario(user);
-            if(resultado)
+            context.Usuario.Add(user);
+            context.SaveChanges();
             return Ok(user);
-            else
-                return BadRequest();
         }
-
         // PUT api/<UsuariosController>/5
+        #region metodoPut
+        //[HttpPut]
+        //public IActionResult Put([FromBody] Usuario user)
+        //{
+        //    if (data.EditarUsuario(user))
+        //        return Ok(user);
+        //    else
+        //        return BadRequest();
+
+        //}
+        #endregion
         [HttpPut]
-        public IActionResult Put( [FromBody] Usuario user)
+        public IActionResult Put([FromBody] Usuario user)
         {
-            if (data.EditarUsuario(user))
-                return Ok(user);
-            else
-                return BadRequest();
+            context.Entry(user).State = EntityState.Modified;
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw ex;
+
+            }
+            return NoContent();
 
         }
-
         // DELETE api/<UsuariosController>/5
         [HttpDelete("{cedula}")]
+        #region metodoDelete
+        //public IActionResult Delete(string cedula)
+        //{
+        //    if (data.EliminarUsuario(cedula))
+        //        return Ok();
+        //    else
+        //        return BadRequest();
+        //}
+        #endregion
+
         public IActionResult Delete(string cedula)
         {
-            if (data.EliminarUsuario(cedula))
-                return Ok();
-            else
-                return BadRequest();
+            if (context.Usuario == null)
+            {
+                return NotFound();
+            }
+            Usuario user = context.Usuario.Find(cedula);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            context.Usuario.Remove(user);
+            context.SaveChanges();
+            return Ok();
         }
     }
 }
