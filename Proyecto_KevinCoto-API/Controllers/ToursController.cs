@@ -107,12 +107,12 @@ namespace Proyecto_KevinCoto_API.Controllers
         {
             if (context.Tour == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             Tour tour = context.Tour.Find(id);
             if (tour == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             context.Tour.Remove(tour);
             context.SaveChanges();

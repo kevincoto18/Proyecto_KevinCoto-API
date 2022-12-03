@@ -106,12 +106,12 @@ namespace Proyecto_KevinCoto_API.Controllers
         {
             if (context.Producto == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             Producto product = context.Producto.Find(id);
             if (product == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             context.Producto.Remove(product);
             context.SaveChanges();

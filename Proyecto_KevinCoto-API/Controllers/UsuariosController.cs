@@ -114,12 +114,12 @@ namespace Proyecto_KevinCoto_API.Controllers
         {
             if (context.Usuario == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             Usuario user = context.Usuario.Find(cedula);
             if (user == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             context.Usuario.Remove(user);
             context.SaveChanges();

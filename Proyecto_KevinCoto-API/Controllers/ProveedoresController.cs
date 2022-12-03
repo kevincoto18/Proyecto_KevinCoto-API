@@ -116,12 +116,12 @@ namespace Proyecto_KevinCoto_API.Controllers
         {
             if (context.Proveedor == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             Proveedor provider = context.Proveedor.Find(id);
             if (provider == null)
             {
-                return NotFound();
+                return BadRequest();
             }
             context.Proveedor.Remove(provider);
             context.SaveChanges();
