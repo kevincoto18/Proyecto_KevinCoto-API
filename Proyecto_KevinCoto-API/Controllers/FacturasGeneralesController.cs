@@ -159,7 +159,9 @@ namespace Proyecto_KevinCoto_API.Controllers
             {
                 return BadRequest();
             }
+            var ejemplo = context.FacturaDetalle.Where(p => p.Id_FacturaGeneral == general.Id).ToList();
             context.FacturaGeneral.Remove(general);
+            context.FacturaDetalle.RemoveRange(ejemplo);
             context.SaveChanges();
             return Ok();
         }
